@@ -12,7 +12,7 @@ export function FeedbackTypeStep({
   return (
     <>
       <header>
-        <span className="text-xl leading-6">Deixe seu feedback</span>
+        <span className="text-xl leading-5">Deixe seu feedback</span>
         <CloseButton />
       </header>
       <div className="flex pt-8 pb-12 gap-2 w-full">
