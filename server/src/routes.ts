@@ -1,49 +1,50 @@
 import express, { Request } from "express";
 import nodemailer from "nodemailer";
-import { prisma } from "./prisma";
-import Feedback from "./typings/feedback";
+import { NodemailerMailAdapter } from "./adapters/nodemailer/nodemailer-mail-adapter";
+import { PrismaFeedbacksRepository } from "./repositories/prisma/prisma-feedbacks-repository";
+import { ShowFeedbackUseCase } from "./use-cases/show-feedbacks-use-case";
+import { SubmitFeedbackUseCase } from "./use-cases/submit-feedback-use-case";
 
-const app = express();
+interface Feedback {
+  type: string;
+  comment: string;
+  screenshot?: string | null;
+}
+interface FeedbackResponse {
+  data: Feedback;
+}
 
-const transport = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
-  port: 2525,
-  auth: {
-    user: "ed9aeaaef98340",
-    pass: "ff5748efe7bbf4",
-  },
-});
+export const routes = express.Router();
+const prismaFeedbacksRepository = new PrismaFeedbacksRepository();
+const nodemailerMailAdapter = new NodemailerMailAdapter();
 
-app.post(
+routes.post(
   "/feedbacks",
-  async (request: Request<{}, any, Feedback>, response) => {
+  async (request: Request<{}, FeedbackResponse, Feedback>, response) => {
     const { type, comment, screenshot } = request.body;
 
-    const feedback = await prisma.feedback.create({
-      data: {
-        type,
-        comment,
-        screenshot,
-      },
+    const submitFeedbackUseCase = new SubmitFeedbackUseCase(
+      prismaFeedbacksRepository,
+      nodemailerMailAdapter
+    );
+
+    await submitFeedbackUseCase.execute({
+      type,
+      comment,
+      screenshot,
     });
 
-    transport.sendMail({
-      from: "Equipe Feedget <equipe@feedget.com>",
-      to: "Kamila Almeida <vkamila54@outlook.com>",
-      subject: "Novo Feedback",
-      html: [
-        `<div style="font-family: sans-serif; font-size: 16px; color: #111">`,
-        `<p>Tipo do feedback: ${type}</p>`,
-        `<p>Comentário: ${comment}</p>`,
-        `</div>`,
-      ].join("\n"),
-    });
+    console.log(request.body);
 
-    return response.status(201).json({ data: feedback });
+    return response.status(201).json({ data: { type, comment, screenshot } });
   }
 );
 
-app.get("/feedbacks", async (req, res) => {
-  const feedbacks = await prisma.feedback.findMany();
-  return res.json(feedbacks);
+routes.get("/feedbacks", async (_request, response) => {
+  const showFeedbackUseCase = new ShowFeedbackUseCase(
+    prismaFeedbacksRepository
+  );
+
+  const feedbacks = await showFeedbackUseCase.execute();
+  return response.status(201).json(feedbacks);
 });
