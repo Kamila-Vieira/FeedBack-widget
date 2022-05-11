@@ -1,8 +1,7 @@
 import express, { Request } from "express";
-import nodemailer from "nodemailer";
 import { NodemailerMailAdapter } from "./adapters/nodemailer/nodemailer-mail-adapter";
 import { PrismaFeedbacksRepository } from "./repositories/prisma/prisma-feedbacks-repository";
-import { ShowFeedbackUseCase } from "./use-cases/show-feedbacks-use-case";
+import { ShowFeedbacksUseCase } from "./use-cases/show-feedbacks-use-case";
 import { SubmitFeedbackUseCase } from "./use-cases/submit-feedback-use-case";
 
 interface Feedback {
@@ -34,17 +33,15 @@ routes.post(
       screenshot,
     });
 
-    console.log(request.body);
-
     return response.status(201).json({ data: { type, comment, screenshot } });
   }
 );
 
 routes.get("/feedbacks", async (_request, response) => {
-  const showFeedbackUseCase = new ShowFeedbackUseCase(
+  const showFeedbacksUseCase = new ShowFeedbacksUseCase(
     prismaFeedbacksRepository
   );
 
-  const feedbacks = await showFeedbackUseCase.execute();
+  const feedbacks = await showFeedbacksUseCase.execute();
   return response.status(201).json(feedbacks);
 });

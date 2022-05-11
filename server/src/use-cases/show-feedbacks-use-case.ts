@@ -1,6 +1,6 @@
 import { FeedbacksRepository } from "../repositories/feedbacks-repository";
 
-export class ShowFeedbackUseCase {
+export class ShowFeedbacksUseCase {
   constructor(private feedbacksRepository: FeedbacksRepository) {}
 
   async execute() {
