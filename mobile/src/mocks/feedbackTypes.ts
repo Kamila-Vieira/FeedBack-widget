@@ -1,32 +1,19 @@
-import bugImageUrl from "../assets/bug.svg";
-import ideaImageUrl from "../assets/idea.svg";
-import thoughtImageUrl from "../assets/thought.svg";
-
-export const FEEDBACK_TYPES = {
+export const feedbackTypes = {
   BUG: {
     title: "Problema",
-    image: {
-      src: bugImageUrl,
-      alt: "Problema",
-    },
+    image: require("../assets/bug.png"),
     placeholder:
       "Algo não está funcionando bem? Queremos corrigir. Conte com detalhes o que está acontecendo...",
   },
   IDEA: {
     title: "Ideia",
-    image: {
-      src: ideaImageUrl,
-      alt: "Ideia",
-    },
+    image: require("../assets/idea.png"),
     placeholder:
       "Teve uma ideia de melhoria ou de nova funcionalidade? Conta pra gente!",
   },
   OTHER: {
     title: "Outro",
-    image: {
-      src: thoughtImageUrl,
-      alt: "Outro",
-    },
+    image: require("../assets/thought.png"),
     placeholder: "Queremos te ouvir. O que você gostaria de nos dizer?",
   },
 };
