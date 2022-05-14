@@ -8,7 +8,9 @@ import { theme } from "../../theme";
 import { feedbackTypes } from "../../mocks/feedbackTypes";
 
 import { styles } from "./styles";
+import { Form } from "../Form";
 import { Options } from "../Options";
+import { Success } from "../Success";
 
 export type FeedbackType = keyof typeof feedbackTypes;
 
@@ -46,7 +48,8 @@ function Widget() {
         backgroundStyle={styles.modal}
         handleIndicatorStyle={styles.indicator}
       >
-        <Options />
+        {/* <Form feedbackType="BUG" /> */}
+        <Success />
       </BottomSheet>
     </>
   );
