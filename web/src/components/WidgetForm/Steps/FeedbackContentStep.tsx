@@ -1,13 +1,21 @@
 import { ArrowLeft } from "phosphor-react";
 import { FormEvent, useState } from "react";
 import { FeedbackType } from "..";
+import { api } from "../../../libs/api";
 import { FEEDBACK_TYPES } from "../../../mocks";
 import { CloseButton } from "../../CloseButton";
+import { Loading } from "../../Loading";
 import { ScreenshotButton } from "../ScreenshotButton";
 interface FeedbackContentStepProps {
   onRestartFeedbackRequested: () => void;
   feedbackType: FeedbackType;
-  onFeedbackSent: (sent: boolean) => void;
+  onFeedbackSent: () => void;
+}
+
+interface FeedbackTypeData {
+  type: FeedbackType;
+  comment: string;
+  screenshot: string | null;
 }
 
 export function FeedbackContentStep({
@@ -17,18 +25,25 @@ export function FeedbackContentStep({
 }: FeedbackContentStepProps) {
   const { image, title, placeholder } = FEEDBACK_TYPES[feedbackType];
   const [disableButton, setDisableButton] = useState(true);
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false);
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState<string>("");
 
-  function handleSubmitFeedback(event: FormEvent) {
+  async function handleSubmitFeedback(event: FormEvent) {
     event.preventDefault();
-
-    console.log({
-      screenshot,
-      comment,
-    });
-
-    onFeedbackSent(true);
+    setIsSendingFeedback(true);
+    try {
+      await api.post("/feedbacks", {
+        type: feedbackType,
+        comment,
+        screenshot,
+      } as FeedbackTypeData);
+      setIsSendingFeedback(false);
+      onFeedbackSent();
+    } catch (error) {
+      console.log(error);
+      setIsSendingFeedback(false);
+    }
   }
 
   function disableButtonsWithoutContent(textAreaValue: string) {
@@ -73,11 +88,11 @@ export function FeedbackContentStep({
             onTookScreenshot={setScreenshot}
           />
           <button
-            disabled={disableButton}
+            disabled={disableButton || isSendingFeedback}
             type="submit"
             className="disabled:opacity-50 disabled:hover:bg-brand-500 p-2 bg-brand-500 rounded-md border-transparent flex-1 flex justify-center items-center text-sm hover:bg-brand-300 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500"
           >
-            Enviar feedback
+            {isSendingFeedback ? <Loading /> : "Enviar feedback"}
           </button>
         </footer>
       </form>
