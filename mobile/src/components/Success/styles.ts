@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 24,
-    marginBottom: 56,
+    marginBottom: 48,
   },
   buttonTitle: {
     fontSize: 14,

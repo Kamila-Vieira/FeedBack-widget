@@ -1,19 +1,26 @@
 import React from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 
-import sucessImage from "../../assets/success.png";
+import successImage from "../../assets/success.png";
 import { Copyright } from "../Copyright";
 
 import { styles } from "./styles";
 
-export function Success() {
+interface Props {
+  onSendAnotherFeedback: () => void;
+}
+
+export function Success({ onSendAnotherFeedback }: Props) {
   return (
     <View style={styles.container}>
-      <Image source={sucessImage} style={styles.image} />
+      <Image source={successImage} style={styles.image} />
+
       <Text style={styles.title}>Agradecemos o feedback</Text>
-      <TouchableOpacity style={styles.button}>
+
+      <TouchableOpacity style={styles.button} onPress={onSendAnotherFeedback}>
         <Text style={styles.buttonTitle}>Quero enviar outro</Text>
       </TouchableOpacity>
+
       <Copyright />
     </View>
   );
