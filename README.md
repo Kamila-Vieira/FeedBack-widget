@@ -12,17 +12,22 @@ A aplicação consiste num widget que possibilita o envio de feedbacks além de 
 
 ### Desktop App:
 
-<img src="assets/screenshots/app_d_options.png" alt="Opções desktop" width="24%"/>
-<img src="assets/screenshots/app_d_option_opened.png" alt="Opção aberta desktop" width="24%"/>
-<img src="assets/screenshots/app_d_option_filled.png" alt="Opção preenchida desktop" width="24%"/>
-<img src="assets/screenshots/app_d_success.png" alt="Mensagem de sucesso desktop" width="24%"/>
+<div>
+  <img src="assets/screenshots/app_d_options.png" alt="Opções desktop" width="24%"/>
+  <img src="assets/screenshots/app_d_option_opened.png" alt="Opção aberta desktop" width="24%"/>
+  <img src="assets/screenshots/app_d_option_filled.png" alt="Opção preenchida desktop" width="24%"/>
+  <img src="assets/screenshots/app_d_success.png" alt="Mensagem de sucesso desktop" width="24%"/>
+</div>
+
 
 ### Mobile App:
 
-<img src="assets/screenshots/app_m_options.png" alt="Opções desktop" width="24%"/>
-<img src="assets/screenshots/app_m_option_opened.png" alt="Opção aberta desktop" width="24%"/>
-<img src="assets/screenshots/app_m_option_filled.png" alt="Opção preenchida desktop" width="24%"/>
-<img src="assets/screenshots/app_m_success.png" alt="Mensagem de sucesso desktop" width="24%"/>
+<div>
+  <img src="assets/screenshots/app_m_options.png" alt="Opções desktop" width="24%"/>
+  <img src="assets/screenshots/app_m_option_opened.png" alt="Opção aberta desktop" width="24%"/>
+  <img src="assets/screenshots/app_m_option_filled.png" alt="Opção preenchida desktop" width="24%"/>
+  <img src="assets/screenshots/app_m_success.png" alt="Mensagem de sucesso desktop" width="24%"/>
+</div>
 
 ## Como rodar a aplicação?
 
