@@ -65,3 +65,8 @@ Em seguida, digitalize o código QR com o aplicativo Expo (Android) ou o aplicat
 
 **Isto é tudo! :heart:<br />
 Se você tiver dúvidas sobre o Feedget, você pode perguntar no [GitHub Issues](https://github.com/Kamila-Vieira/FeedBack-widget/issues).**
+
+
+## Atualização V2 (em breve):
+
+<img src="assets/feedget_v2.png" alt="Futuras atualizações" width="50%"/>
